@@ -26,4 +26,9 @@ class Instructor::LessonsController < ApplicationController
   def lesson_params
     params.require(:lesson).permit(:title, :subtitle, :video)
   end
+
+  if Rails.env.development?
+  config.cache_dir = '/home/vagrant/uploads_tmp/tmp/uploads'
+  config.root = '/home/vagrant/uploads_tmp/tmp'
+end
 end
