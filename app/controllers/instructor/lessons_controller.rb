@@ -1,13 +1,17 @@
 class Instructor::LessonsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :require_authorized_for_current_section
+
+  def before
+    before_action :authenticate_user!
+    before_action :require_authorized_for_current_section
+  end
+
   def new
     @lesson = Lesson.new
   end
 
   def create
     @lesson = current_section.lessons.create(lesson_params)
-    redirect_to instructor_course_path(current_section.course)
+    redirect_to instructor_course_path(current_section.course)  
   end
 
   private
@@ -24,11 +28,7 @@ class Instructor::LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:title, :subtitle, :video)
+    params.require(:lesson).permit(:title, :subtitle)
   end
 
-  if Rails.env.development?
-  config.cache_dir = '/home/vagrant/uploads_tmp/tmp/uploads'
-  config.root = '/home/vagrant/uploads_tmp/tmp'
-end
 end
