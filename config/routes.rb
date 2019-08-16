@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
+  resource :dashboard, only: [:show]
   #devise_for :models
   #devise_for :installs
   root 'static_pages#index'
